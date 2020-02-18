@@ -1,0 +1,34 @@
+<app-loader [flag]=flagger></app-loader>
+<div class="contianer">
+<h5><u>Admin create slots</u></h5>
+<form [formGroup]="eventForm" (ngSubmit)="publish()">
+    <div class="form-group">
+      <label>Select event:</label>
+      <select class="form-control" formControlName="eventId" (change)="updateEvent()" required>            
+            <option *ngFor="let event of eventList" [value]="event.eventId" >{{event.evenName}}</option>
+      </select>  
+      <div *ngIf="eventControl.eventId.invalid && (eventControl.eventId.dirty || eventControl.eventId.touched)" class="alert alert-danger">
+        <div *ngIf="eventControl.eventId.errors.required">
+            please select the event.
+        </div>
+    </div>
+    </div>
+    <label for="evdate">Event day:</label>
+    <input id="evdate" disabled type="text" [value]="selectedEvent.eventDate" class="form-control"  placeholder="Event start day">
+    <label for="sttime" >Event start time:</label>
+    <input id="sttime" disabled type="text" [value]="selectedEvent.startTime" class="form-control"  placeholder="Event start time">
+    <label for="endtime">Event end time:</label>
+    <input id="endtime" disabled type="text" [value]="selectedEvent.endTime" class="form-control"  placeholder="Event end time">
+    <br>
+  <app-dynamic-event-adder role="admin" [selectedAdminSlots]="selectedAdminSlots" (addSloatEvent)="getSloats($event)"></app-dynamic-event-adder>
+  
+<div class="row justify-content-end">
+  <div class="col-sm-2">
+    <br>
+    <button class="btn btn-outline-primary" type="submit">Create slots</button>
+  </div>
+</div>
+</form>
+<br>
+</div>
+
