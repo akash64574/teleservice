@@ -1,0 +1,100 @@
+<!-- <div class="container">
+<h6><u>Sold slots</u></h6>
+<div class="row">
+  <table class="table table-dark table-stripped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>From time</th>
+        <th>To time</th>
+        <th>Status</th>
+        <th>Charges</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let slot of selectedAdminSlots?.subSlotList; let i = index">
+        <td>{{slot.slotDate}}</td>
+        <td>{{slot.startTime}}</td>
+        <td>{{slot.endTime}}</td>
+        <td>{{slot.status}}</td>
+        <td>{{slot.charges}} INR</td>
+      </tr>
+    </tbody>  
+  </table>  
+</div>  
+</div> -->
+<form [formGroup]="slotForm" (ngSubmit)="addSlots(slotForm);"> 
+  <div class="card">
+    <div class="card-header">Add Slots <button class="btn btn-outline-success right" [disabled]="slotForm.invalid" type="submit">Add</button></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4">
+            <p>Date</p>
+            <p><input type="date" max=1601596800000 min=1601596800000 formControlName="slotDate" class="form-control"></p>
+            <div *ngIf="slotControl.slotDate.invalid && (slotControl.slotDate.dirty || slotControl.slotDate.touched)" class="alert alert-danger">
+              <div *ngIf="slotControl.slotDate.errors.required">
+                  Slot date is required.
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <p>From time</p>
+          <p><input type="time" step="1" formControlName="startTime" class="form-control"></p>
+          <div *ngIf="slotControl.startTime.invalid && (slotControl.startTime.dirty || slotControl.startTime.touched)" class="alert alert-danger">
+            <div *ngIf="slotControl.startTime.errors.required">
+                Slot from time is required.
+            </div>
+        </div>          
+      </div>  
+      <div class="col-sm-4">
+        <p>To time</p>
+        <p><input type="time" step="1" formControlName="endTime" class="form-control"></p>
+        <div *ngIf="slotControl.endTime.invalid && (slotControl.endTime.dirty || slotControl.endTime.touched)" class="alert alert-danger">
+          <div *ngIf="slotControl.endTime.errors.required">
+              Slot to time is required.
+          </div>
+      </div>        
+      </div>
+      <!-- <div class="col-sm-3" *ngIf="role !== 'admin'">
+        <p>Agency name</p>
+        <p><input type="input" formControlName="adAgencyName" class="form-control" placeholder="Agency name"></p>
+        <div *ngIf="slotControl.adAgencyName.invalid && (slotControl.adAgencyName.dirty || slotControl.adAgencyName.touched)" class="alert alert-danger">
+          <div *ngIf="slotControl.adAgencyName.errors.required">
+              Agency name is required.
+          </div>
+      </div>        
+      </div> -->
+      <div>
+          <h6 *ngIf="invalidSlotAlert">Invalid slot</h6>
+      </div>                                     
+    </div>
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <!-- <th *ngIf="role !== 'admin'">Agency name</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let slot of slotList; let i = index">
+            <td>{{slot.slotDate}}</td>
+            <td>{{slot.startTime}}</td>
+            <td>{{slot.endTime}}</td>
+            <!-- <td *ngIf="role !== 'admin'">{{slot.adAgencyName}}</td> -->
+            <td><button class="btn btn-outline-danger" type="button" (click)="deleteSlots(i)">Delete</button></td>
+          </tr>
+        </tbody>
+        <h6 *ngIf="!slotList.length">No slots added</h6>  
+      </table>  
+    </div>  
+    </div>
+
+    <!-- <div class="card-footer"><button class="btn btn-outline-primary" [disabled]="slotForm.invalid" type="submit">Add</button> -->
+      <!-- <button class="btn btn-outline-danger" [disabled]="slotForm.invalid" type="button" (click)="done()">Done</button> -->
+      <!-- </div> -->
+
+  </div> 
+</form>
